@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -11,6 +11,7 @@ import {
   Menu,
   X,
   Activity,
+  LogInIcon,
 } from 'lucide-react';
 import IprepLogo from './IprepLogo';
 import { ThemeToggle } from './ThemeToggle';
@@ -41,6 +42,12 @@ export default function Navbar({ isListening = false }: NavbarProps) {
       href: '/workspace',
       icon: BookOpen,
       desc: 'Lecture & meeting summaries',
+    },
+    {
+      name: 'Login/Register',
+      href: '/login',
+      icon: LogInIcon,
+      desc: 'Login',
     },
   ];
 
