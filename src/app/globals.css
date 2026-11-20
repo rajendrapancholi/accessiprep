@@ -33,39 +33,6 @@
   --ring: #3b82f6;
 }
 
-/* Dark Mode Colors  */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-
-    --card: #121214;
-    --card-foreground: #ededed;
-
-    --popover: #121214;
-    --popover-foreground: #ededed;
-
-    --primary: #fafafa;
-    --primary-foreground: #18181b;
-
-    --secondary: #27272a;
-    --secondary-foreground: #fafafa;
-
-    --muted: #1f1f23;
-    --muted-foreground: #a1a1aa;
-
-    --accent: #27272a;
-    --accent-foreground: #fafafa;
-
-    --destructive: #dc2626;
-    --destructive-foreground: #fafafa;
-
-    --border: #27272a;
-    --input: #27272a;
-    --ring: #3b82f6;
-  }
-}
-
 /* Manual Dark Mode toggle for (.dark class) */
 .dark {
   --background: #0a0a0a;
@@ -131,14 +98,6 @@
 
   --font-sans: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
-}
-
-@utility btn-bold {
-  @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition cursor-pointer;
-}
-
-@utility btn-ghost {
-  @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium bg-transparent text-foreground hover:bg-muted transition cursor-pointer;
 }
 
 @layer base {
