@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { RegisterFormData, registerSchema } from '@/lib/validations/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/utils';
 import { Eye, EyeOff } from 'lucide-react';
 
 const Register: React.FC = () => {
