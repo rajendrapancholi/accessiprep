@@ -61,8 +61,8 @@ export default function Home() {
             Follow every conversation, in words that make sense to you.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            AccessIprep captions speech as it happens, explains hard sentences in
-            simple language, and helps you reply. Built for deaf and
+            AccessIprep captions speech as it happens, explains hard sentences
+            in simple language, and helps you reply. Built for deaf and
             hard-of-hearing students and job seekers.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -152,7 +152,7 @@ export default function Home() {
           <ol className="mt-10 grid gap-10 md:grid-cols-3">
             {steps.map((s, i) => (
               <li key={s.title} className="flex gap-4">
-                <span className="flex size-11 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary/20 text-primary-foreground dark:bg-primary/15 dark:text-primary border border-primary/30">
                   <s.icon className="size-5" aria-hidden="true" />
                 </span>
                 <div>
