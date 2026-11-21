@@ -7,8 +7,14 @@ import { RegisterFormData, registerSchema } from '@/lib/validations/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/utils/utils';
 import { Eye, EyeOff } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
+import { toast } from 'sonner';
 
 const Register: React.FC = () => {
+  const router = useRouter();
+  const supabase = createClient();
+
   const [error, setError] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
@@ -25,12 +31,30 @@ const Register: React.FC = () => {
 
   const onSubmit = async (data: RegisterFormData) => {
     setError('');
-    try {
-      console.log('Validated Register Data:', data);
-      // await
-    } catch (error) {
-      setError('Something went wrong. Please try again.');
+    const toastId = toast.loading('Creating your account...');
+
+    const { error: signUpError } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: {
+        data: {
+          full_name: data.fullName,
+        },
+      },
+    });
+    
+    if (signUpError) {
+      setError(signUpError.message);
+      toast.error(signUpError.message, { id: toastId });
+      return;
     }
+
+    toast.success('Account created! Please check your email to verify.', {
+      id: toastId,
+    });
+    setTimeout(() => {
+      router.push('/login');
+    }, 1500);
   };
 
   return (

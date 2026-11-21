@@ -7,8 +7,14 @@ import { LoginFormData, loginSchema } from '@/lib/validations/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/utils/utils';
 import { Eye, EyeOff } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
+import { toast } from 'sonner';
 
 const Login: React.FC = () => {
+  const router = useRouter();
+  const supabase = createClient();
+
   const [error, setError] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -24,11 +30,47 @@ const Login: React.FC = () => {
   const onSubmit = async (data: LoginFormData) => {
     setError('');
 
-    try {
-      console.log('Logging in user:', data);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    } catch (err) {
-      setError('Invalid email or password. Please try again.');
+    const toastId = toast.loading('Logging your account...');
+
+    const { data: authData, error: signInError } =
+      await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
+      });
+
+    if (signInError || !authData.user) {
+      const errorMsg = signInError?.message || 'Invalid email or password.';
+      setError(errorMsg);
+      toast.error(errorMsg, { id: toastId });
+      return;
+    }
+
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('role, full_name')
+      .eq('id', authData.user.id)
+      .single();
+
+    if (profileError) {
+      console.error(profileError);
+      toast.error('Could not fetch user profile. Please contact support.', {
+        id: toastId,
+      });
+      return;
+    }
+
+    const userName =
+      profile?.full_name || authData.user.user_metadata?.full_name || 'User';
+
+    toast.success(`Welcome back, ${userName}!`, {
+      id: toastId,
+    });
+
+    router.refresh();
+    if (profile?.role === 'admin') {
+      router.push('/admin/dashboard');
+    } else {
+      router.push('/dashboard');
     }
   };
 

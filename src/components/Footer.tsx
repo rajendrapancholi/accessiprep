@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Captions } from 'lucide-react';
+import IprepLogo from './IprepLogo';
 
 const columns = [
   {
@@ -33,12 +33,21 @@ export function Footer() {
         <div className="max-w-sm">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-md text-lg font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            aria-label="AccessIprepAI, home"
+            className="flex items-center rounded-lg p-1 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <span className="flex size-8 items-center justify-center rounded-md bg-ring text-white">
-              <Captions className="size-5" aria-hidden="true" />
-            </span>
-            AccessIprep
+            {/* Light theme: dark text */}
+            <IprepLogo
+              aria-hidden="true"
+              darkText
+              className="block h-9 w-auto dark:hidden"
+            />
+            {/* Dark theme: white text */}
+            <IprepLogo
+              aria-hidden="true"
+              darkText={false}
+              className="hidden h-9 w-auto dark:block"
+            />
           </Link>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
             AI that turns speech into clear, simple text, so deaf and
@@ -69,7 +78,8 @@ export function Footer() {
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>
-            &copy; <CurrentYear /> AccessIprep. Built for Accessible AI for Everyone.
+            &copy; <CurrentYear /> AccessIprep. Built for Accessible AI for
+            Everyone.
           </p>
           <p>Captions are AI-generated and may contain mistakes.</p>
         </div>

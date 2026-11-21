@@ -14,7 +14,7 @@ export const ENV = createEnv({
   // Client-side environment variables
   client: {
     NEXT_PUBLIC_SUPABASE_URL: z.url(),
-    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: z.url(),
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: z.string().min(1),
   },
 
   // All variables must be manually mapped here for Next.js bundling.
